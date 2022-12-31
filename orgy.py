@@ -19,7 +19,7 @@ def write_metadata(playlist_id):
     m4a_paths = list(album_dir_path.glob("*.m4a"))
     track_number_max = len(m4a_paths)
     for m4a_path in m4a_paths:
-        entry_id = m4a_path.stem.split("-")[-1]
+        entry_id, _ = m4a_path.stem.split(".", 1)
         (entry,) = [e for e in info["entries"] if e["id"] == entry_id]
         track_number = int(entry["playlist_index"])
         title = entry["title"]
@@ -35,7 +35,9 @@ def write_metadata(playlist_id):
 
 
 def download(url):
-    with YoutubeDL({"format": M4A_FORMAT}) as ydl:
+    with YoutubeDL(
+        {"format": M4A_FORMAT, "outtmpl": "%(id)s.%(title)s.%(ext)s"}
+    ) as ydl:
         ydl.download([url])
 
 

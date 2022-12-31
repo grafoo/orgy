@@ -2,7 +2,7 @@ from setuptools import find_packages, setup
 
 setup(
     name="orgy",
-    version="0.1.0",
+    version="0.1.1",
     entry_points={
         "console_scripts": [
             "orgy = orgy:main",
