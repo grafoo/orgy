@@ -63,6 +63,7 @@ def main():
     else:
         info = get_info(args.url)
     playlist_id = info["id"]
+    entries_len = len(info["entries"])
     with open(f"{playlist_id}.info.json", "w") as f:
         json.dump(info, f)
     download_dir = playlist_id
@@ -78,10 +79,12 @@ def main():
         executor.map(download, song_urls)
         executor.shutdown()
     parts = list(Path(".").glob("*.part"))
-    while parts:
+    done = list(Path(".").glob("*.m4a"))
+    while parts or (len(done) < entries_len):
         with ThreadPoolExecutor(max_workers=len(song_urls)) as executor:
             executor.map(download, song_urls)
             executor.shutdown()
         parts = list(Path(".").glob("*.part"))
+        done = list(Path(".").glob("*.m4a"))
     chdir("..")
     write_metadata(playlist_id)
