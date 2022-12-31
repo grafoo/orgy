@@ -1,2 +1,4 @@
 # orgy
-the love child of youtube-dl and mutagen
+
+the organising youtube-dl,
+a love child of youtube-dl and mutagen.
