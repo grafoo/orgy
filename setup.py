@@ -10,6 +10,7 @@ setup(
     },
     install_requires=[
         "mutagen==1.46.0",
+        "tqdm==4.64.1",
         "youtube-dl==2021.12.17",
     ],
 )
